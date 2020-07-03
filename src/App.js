@@ -1,26 +1,105 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+// import data from './data/dataset.json';
+import LineGraph from './components/line-graphs/line-graphs';
+import HeatMap from './components/heat-map/heat-map'
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import BarChart from './components/bar-chart/bar-chart';
+import { fetchData } from './api';
+import Loader from './components/loader/loader'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  state = {
+    data: [],
+    activeTab: 0
+  };
+
+  handleChange = (event, activeTab) => {
+    this.setState((state) => ({ activeTab }));
+  };
+
+  async componentDidMount() {
+    const fetchedData = await fetchData();
+    console.log('data = ', fetchedData);
+
+    this.setState({ data: fetchedData });
+  }
+
+  returnView() {
+    let data = this.state.data;
+    let gyroscope = ['gyroX', 'gyroY', 'gyroZ'];
+    let gyroData = data.map((obj) => {
+      return {
+        timeStamp: obj.timeStamp,
+        valX: obj.gyroX,
+        valY: obj.gyroY,
+        valZ: obj.gyroZ
+      }
+    })
+    let acceData = data.map((obj) => {
+      return {
+        timeStamp: obj.timeStamp,
+        valX: obj.acceX,
+        valY: obj.acceY,
+        valZ: obj.acceZ
+      }
+    })
+    let accelerometer = ['acceX', 'acceY', 'acceZ'];
+    if (this.state.data.length) {
+      if (this.state.activeTab === 0) {
+        return (
+          <LineGraph dataSet={gyroData} gyroscope={gyroscope} ></LineGraph>
+        )
+      }
+      if (this.state.activeTab === 1) {
+        return (
+          <LineGraph dataSet={acceData} gyroscope={accelerometer} ></LineGraph>
+        )
+      }
+      else if (this.state.activeTab === 2) {
+        return (
+          <BarChart dataSet={data}></BarChart>
+        )
+      }
+      else if (this.state.activeTab === 3) {
+        return (
+          <HeatMap></HeatMap>
+        )
+      }
+    }
+    else {
+      return (
+        <Loader message='Loading . . .'></Loader>
+      );
+    }
+
+  }
+
+  render() {
+    const { activeTab } = this.state;
+    return (
+      <div className="App">
+        <Paper>
+          <Tabs
+            value={activeTab}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label="Gyroscope" />
+            <Tab label="Accelerometer 1" />
+            <Tab label="Accelerometer 2" />
+            <Tab label="Heat Map" />
+          </Tabs>
+        </Paper>
+        {this.returnView()}
+      </div>
+    );
+  }
 }
 
 export default App;
