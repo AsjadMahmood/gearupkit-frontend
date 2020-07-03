@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
+import styles from './bar-chart.module.css';
 import { Typography, CardContent, Grid } from '@material-ui/core';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -78,19 +79,19 @@ const BarChart = (props) => {
 
     return (
         <div>
-            <Grid xs={12} md={5} container item justify="center" style={{ margin: '3%' }}>
+           <Grid xs={12} md={5} container justify="center" className={styles.Content} item  style={{ margin: '3%' }}>
                 <CardContent>
-                <div
+                    <div className={styles.Hide}
                     style={{ display: 'inline', fontSize: '1.1rem'}}>
                     Select Date </div>
                     <DatePicker
                         className="form-control"
-                        style={{ borderTopLeftRadius: '0rem', borderBottomLeftRadius: '0rem' }}
+                        style={{borderTopLeftRadius:'0rem',borderBottomLeftRadius:'0rem'}}
                         selected={startDate}
                         onChange={date => assembleData(date)}
                         showTimeSelect
                         timeFormat="HH:mm"
-                        timeIntervals={5}
+                        timeIntervals={60}
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h:mm aa"
                     />

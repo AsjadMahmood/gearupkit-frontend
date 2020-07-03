@@ -118,9 +118,9 @@ const LineGraph = (props) => {
 
     return (
         <div>
-            <Grid xs={12} md={5} container item  justify="center" style={{ margin: '3%' }}>
+            <Grid xs={12} md={5} container justify="center" className={styles.Content} item  style={{ margin: '3%' }}>
                 <CardContent>
-                    <div
+                    <div className={styles.Hide}
                     style={{ display: 'inline', fontSize: '1.1rem'}}>
                     Select Date </div>
                     <DatePicker

@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css'
 // import data from './data/dataset.json';
 import LineGraph from './components/line-graphs/line-graphs';
 import HeatMap from './components/heat-map/heat-map'
@@ -81,9 +81,11 @@ class App extends React.Component {
   render() {
     const { activeTab } = this.state;
     return (
-      <div className="App">
+      <div className={styles.App}>
         <Paper>
-          <Tabs
+          <Tabs 
+           tabItemContainerStyle={{width: 225}}
+            className={styles.Tab}
             value={activeTab}
             onChange={this.handleChange}
             indicatorColor="primary"
@@ -95,7 +97,7 @@ class App extends React.Component {
             <Tab label="Accelerometer 2" />
             <Tab label="Heat Map" />
           </Tabs>
-        </Paper>
+         </Paper>
         {this.returnView()}
       </div>
     );
