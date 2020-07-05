@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Line, Bar, Chart } from 'react-chartjs-2';
+import { Line, Chart } from 'react-chartjs-2';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
-import { Typography,CardContent, Grid } from '@material-ui/core';
+import { CardContent, Grid } from '@material-ui/core';
 import "react-datepicker/dist/react-datepicker.css";
 import styles from './line-graphs.module.css';
 

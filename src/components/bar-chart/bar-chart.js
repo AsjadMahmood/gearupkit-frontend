@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
 import styles from './bar-chart.module.css';
-import { Typography, CardContent, Grid } from '@material-ui/core';
+import { CardContent, Grid } from '@material-ui/core';
 import "react-datepicker/dist/react-datepicker.css";
 
 
