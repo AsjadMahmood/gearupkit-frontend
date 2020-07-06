@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './App.module.css'
-// import data from './data/dataset.json';
+import JsonData from './data/dataset.json';
 import LineGraph from './components/line-graphs/line-graphs';
 import HeatMap from './components/heat-map/heat-map'
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +10,10 @@ import BarChart from './components/bar-chart/bar-chart';
 import { fetchData } from './api';
 import Loader from './components/loader/loader'
 
+
 class App extends React.Component {
+
+
 
   state = {
     data: [],
@@ -22,7 +25,8 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    const fetchedData = await fetchData();
+    //const fetchedData = await fetchData();
+    const fetchedData = JsonData;
     console.log('data = ', fetchedData);
 
     this.setState({ data: fetchedData });
@@ -37,7 +41,6 @@ class App extends React.Component {
       heatMapData.push({lat: data[i].latitude,lng: data[i].longitude})
     }
     let gyroscope = ['gyroX', 'gyroY', 'gyroZ'];
-
     let accelerometer = ['acceX', 'acceY', 'acceZ'];
     if (this.state.data.length) {
       if (this.state.activeTab === 0) {
@@ -57,6 +60,7 @@ class App extends React.Component {
       }
       else if (this.state.activeTab === 3) {
         console.log('heatMap',heatMapData);
+        
         return (
           <HeatMap center={{ lat: 51.775, lng: 0.434 }} zoom={8} positions={heatMapData} />
         )
@@ -67,6 +71,7 @@ class App extends React.Component {
         <Loader message='Loading . . .'></Loader>
       );
     }
+
   }
 
   render() {
