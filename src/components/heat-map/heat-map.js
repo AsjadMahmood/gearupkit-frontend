@@ -61,7 +61,7 @@ class HeapMap extends Component {
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyA5O1Gc17CcPN1f13YIhTaMJW8jveNZdrE" }}
+          bootstrapURLKeys={{ key: "Your Google Maps Api Key" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           heatmapLibrary={true}
